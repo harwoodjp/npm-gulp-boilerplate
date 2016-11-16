@@ -19,7 +19,6 @@ gulp.task('autoprefix-then-minify', function(){
     .pipe(gulp.dest('styles'))
 });
 
-
 gulp.task('watch', function() {
 	gulp.watch('*.scss', ['sass']);
 	gulp.watch('styles/*.css', ['autoprefix-then-minify']);
