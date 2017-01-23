@@ -25,13 +25,13 @@ gulp.task('browser-sync', function() {
         server: {
             baseDir: "./"
         },
-        files: ['./']
+        files: ['./'],
+        online: true
     });
 });
 
 gulp.task('default', ['browser-sync'], function() {
 	gulp.watch('static/css/src/*.scss', ['sass']);
 	gulp.watch('static/css/dist/*.css', ['autoprefix-then-minify']);
-    gulp.watch("./**").on('change', browserSync.reload);    
-
+    gulp.watch("./**.{html,css,js,scss}").on('change', browserSync.reload);
 });
