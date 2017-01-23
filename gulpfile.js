@@ -20,12 +20,11 @@ gulp.task('autoprefix-then-minify', function(){
     .pipe(gulp.dest('static/css/dist'))
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['sass'], function() {
     browserSync.init({
         server: {
             baseDir: "./"
         },
-        files: ['./'],
         online: true
     });
 });
@@ -33,5 +32,7 @@ gulp.task('browser-sync', function() {
 gulp.task('default', ['browser-sync'], function() {
 	gulp.watch('static/css/src/*.scss', ['sass']);
 	gulp.watch('static/css/dist/*.css', ['autoprefix-then-minify']);
-    gulp.watch("./**.{html,css,js,scss}").on('change', browserSync.reload);
+    //gulp.watch("**/*.{html,css,js,scss}").on('change', browserSync.reload);
+    gulp.watch("**/*.html").on('change', browserSync.reload);
+    gulp.watch("static/**/*").on('change', browserSync.reload);
 });
