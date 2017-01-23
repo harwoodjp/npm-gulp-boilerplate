@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var cleanCSS = require('gulp-clean-css');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var browserSync = require('browser-sync').create();
 
 gulp.task('sass', function(){
   return gulp.src('static/css/src/*.scss')
@@ -19,8 +20,18 @@ gulp.task('autoprefix-then-minify', function(){
     .pipe(gulp.dest('static/css/dist'))
 });
 
-gulp.task('watch', function() {
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        },
+        files: ['./']
+    });
+});
+
+gulp.task('default', ['browser-sync'], function() {
 	gulp.watch('static/css/src/*.scss', ['sass']);
 	gulp.watch('static/css/dist/*.css', ['autoprefix-then-minify']);
+    gulp.watch("./**").on('change', browserSync.reload);    
 
 });
