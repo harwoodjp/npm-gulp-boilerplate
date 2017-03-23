@@ -6,7 +6,8 @@ var browserSync = require('browser-sync').create();
 
 gulp.task('sass', function(){
   return gulp.src('static/css/src/*.scss')
-    .pipe(sass()) // Converts Sass to CSS with gulp-sass
+    .pipe(sass())
+    .on('error', swallowError )    
     .pipe(gulp.dest('static/css/dist'))
 });
 
@@ -16,7 +17,9 @@ gulp.task('autoprefix-then-minify', function(){
         browsers: ['last 2 versions', '> 0%','Firefox ESR'],
         cascade: false
     }))
+    .on('error', swallowError )    
     .pipe(cleanCSS({compatibility: 'ie8'}))
+    .on('error', swallowError )    
     .pipe(gulp.dest('static/css/dist'))
 });
 
@@ -36,3 +39,8 @@ gulp.task('default', ['browser-sync'], function() {
     gulp.watch("**/*.html").on('change', browserSync.reload);
     gulp.watch("static/**/*").on('change', browserSync.reload);
 });
+
+function swallowError (error) {
+  console.log(error.toString())
+  this.emit('end')
+}
