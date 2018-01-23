@@ -1,8 +1,8 @@
-var gulp = require('gulp');
-var cleanCSS = require('gulp-clean-css');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
+const gulp = require('gulp');
+const cleanCSS = require('gulp-clean-css');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const browserSync = require('browser-sync').create();
 
 gulp.task('sass', function(){
   return gulp.src('static/css/src/*.scss')
@@ -28,7 +28,8 @@ gulp.task('browser-sync', ['sass'], function() {
         server: {
             baseDir: "./"
         },
-        online: true
+        online: true,
+        notify: false
     });
 });
 
